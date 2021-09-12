@@ -1,0 +1,44 @@
+name: .NET
+
+on:
+  push:
+    branches: [ feature/*, master ]
+    
+  pull_request:
+    branches: [ master ]
+    
+  release:
+    types: [ published ]
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        include-prerelease: true
+  
+    - name: Create Local NuGet Directory
+      run: mkdir ~/nuget
+      
+    - name: Add Local Nuget Source
+      run: dotnet nuget add source ~/nuget
+      
+    - name: Restore AsyncPipeline
+      run: dotnet restore ./src/*/*/AsyncPipeline.csproj
+
+    - name: Build AsyncPipeline
+      run: dotnet build ./src/*/*/AsyncPipeline.csproj --no-restore  -c Release
+
+    - name: Pack AsyncPipeline
+      run: dotnet pack ./src/*/*/AsyncPipeline.csproj --no-restore -o ~/nuget  -c Release
+      
+    - name: Push Packages
+      if: ${{ github.event_name == 'release' }}
+      run: dotnet nuget push "../../../nuget/*.nupkg" -s https://api.nuget.org/v3/index.json -k ${{ secrets.NuGetSourcePassword }} --skip-duplicate
