@@ -7,7 +7,7 @@ namespace System
         public bool Equals(AsyncPipeline<T> other)
             =>
             ValueTaskComparer.Equals(valueTask, other.valueTask)
-            && HasCanceledComparer.Equals(hasCanceled, other.hasCanceled)
+            && IsCanceledComparer.Equals(isCanceled, other.isCanceled)
             && CancellationTokenComparer.Equals(cancellationToken, other.cancellationToken);
     }
 }

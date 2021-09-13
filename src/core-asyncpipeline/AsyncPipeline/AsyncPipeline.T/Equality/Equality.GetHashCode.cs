@@ -9,7 +9,7 @@ namespace System
             HashCode.Combine(
                 EqualityContract,
                 ValueTaskComparer.GetHashCode(valueTask),
-                HasCanceledComparer.GetHashCode(hasCanceled),
+                IsCanceledComparer.GetHashCode(isCanceled),
                 CancellationTokenComparer.GetHashCode(cancellationToken));
     }
 }

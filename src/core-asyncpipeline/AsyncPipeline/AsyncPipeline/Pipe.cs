@@ -15,7 +15,7 @@ namespace System
             =>
             new(
                 valueTask: new(value),
-                hasCanceled: cancellationToken.IsCancellationRequested,
+                isCanceled: cancellationToken.IsCancellationRequested,
                 cancellationToken: cancellationToken);
     }
 }

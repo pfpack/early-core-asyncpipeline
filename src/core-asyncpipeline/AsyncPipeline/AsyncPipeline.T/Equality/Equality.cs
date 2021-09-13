@@ -12,7 +12,7 @@ namespace System
 
         private static IEqualityComparer<ValueTask<T>> ValueTaskComparer => EqualityComparer<ValueTask<T>>.Default;
 
-        private static IEqualityComparer<bool> HasCanceledComparer => EqualityComparer<bool>.Default;
+        private static IEqualityComparer<bool> IsCanceledComparer => EqualityComparer<bool>.Default;
 
         private static IEqualityComparer<CancellationToken> CancellationTokenComparer => EqualityComparer<CancellationToken>.Default;
     }

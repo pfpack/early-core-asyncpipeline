@@ -7,21 +7,19 @@ namespace System
 {
     public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
     {
-        private static readonly CancellationToken CanceledToken;
-
-        static AsyncPipeline() => CanceledToken = new(canceled: true);
+        private static CancellationToken CanceledToken() => new(canceled: true);
 
         private readonly ValueTask<T> valueTask;
 
-        private readonly bool hasCanceled;
+        private readonly bool isCanceled;
 
         private readonly CancellationToken cancellationToken;
 
-        internal AsyncPipeline(ValueTask<T> valueTask, bool hasCanceled, CancellationToken cancellationToken)
+        internal AsyncPipeline(ValueTask<T> valueTask, bool isCanceled, CancellationToken cancellationToken)
         {
             this.valueTask = valueTask;
             this.cancellationToken = cancellationToken;
-            this.hasCanceled = hasCanceled;
+            this.isCanceled = isCanceled;
         }
     }
 }

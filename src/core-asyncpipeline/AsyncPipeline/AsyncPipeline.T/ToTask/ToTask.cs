@@ -8,6 +8,6 @@ namespace System
     {
         public Task<T> ToTask()
             =>
-            hasCanceled is false ? valueTask.AsTask() : Task.FromCanceled<T>(CanceledToken);
+            isCanceled is false ? valueTask.AsTask() : Task.FromCanceled<T>(CanceledToken());
     }
 }
