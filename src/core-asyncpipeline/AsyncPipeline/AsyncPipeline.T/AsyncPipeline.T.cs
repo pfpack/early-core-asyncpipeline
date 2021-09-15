@@ -18,8 +18,8 @@ namespace System
         internal AsyncPipeline(ValueTask<T> valueTask, bool isCanceled, CancellationToken cancellationToken)
         {
             this.valueTask = valueTask;
-            this.cancellationToken = cancellationToken;
             this.isCanceled = isCanceled;
+            this.cancellationToken = cancellationToken;
         }
     }
 }
