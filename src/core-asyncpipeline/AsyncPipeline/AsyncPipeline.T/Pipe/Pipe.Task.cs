@@ -16,7 +16,7 @@ namespace System
             =>
             isCanceled || cancellationToken.IsCancellationRequested
                 ? new(valueTask: default, isCanceled: true, cancellationToken: cancellationToken)
-                : new(valueTask: InnerPipeAsync(mapAsync), isCanceled: isCanceled, cancellationToken: cancellationToken);
+                : new(valueTask: InnerPipeAsync(mapAsync), isCanceled: false, cancellationToken: cancellationToken);
 
         private async ValueTask<TResult> InnerPipeAsync<TResult>(Func<T, CancellationToken, Task<TResult>> mapAsync)
         {
