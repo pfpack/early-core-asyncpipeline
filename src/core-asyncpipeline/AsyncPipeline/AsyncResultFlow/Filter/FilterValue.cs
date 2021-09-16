@@ -30,7 +30,7 @@ namespace System
             InnerPipeValue(
                 (r, t) => r.FilterValueAsync(
                     s => predicateAsync.Invoke(s, t),
-                    f => f.Pipe(causeFactory).Pipe(ValueTask.FromResult)));
+                    f => f.InternalPipe(causeFactory).InternalPipe(ValueTask.FromResult)));
 
         private AsyncResultFlow<TSuccess, TFailure> InnerFilterValue(
             Func<TSuccess, CancellationToken, ValueTask<bool>> predicateAsync,

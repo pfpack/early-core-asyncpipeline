@@ -30,7 +30,7 @@ namespace System
             asyncPipeline.InternalPipe(
                 (r, t) => r.FoldAsync(
                     s => mapSuccessAsync.Invoke(s, t),
-                    f => f.Pipe(mapFailure).Pipe(Task.FromResult)));
+                    f => f.InternalPipe(mapFailure).InternalPipe(Task.FromResult)));
 
         private AsyncPipeline<TResult> InnerFilter<TResult>(
             Func<TSuccess, CancellationToken, Task<TResult>> mapSuccessAsync,

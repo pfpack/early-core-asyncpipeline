@@ -12,7 +12,7 @@
     <Copyright>Copyright © 2020-2021 Andrei Sergeev, Pavel Moskovoy</Copyright>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>EarlyFuncPack.Core.AsyncPipeline</AssemblyName>
-    <Version>0.0.1-preview.0.1.1</Version>
+    <Version>0.0.1-preview.0.1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <PackageReference Include="PrimeFuncPack.Core.Result" Version="1.1.1" />
-    <PackageReference Include="PrimeFuncPack.Primitives" Version="1.2.0" />
   </ItemGroup>
 
 </Project>

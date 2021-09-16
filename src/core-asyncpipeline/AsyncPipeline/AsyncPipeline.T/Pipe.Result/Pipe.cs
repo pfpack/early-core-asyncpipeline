@@ -4,11 +4,11 @@ namespace System
 {
     partial struct AsyncPipeline<T>
     {
-        public AsyncResultFlow<TSuccess, TFailure> Pipe<TSuccess, TFailure>(Func<T, Result<TSuccess, TFailure>> next)
+        public AsyncResultFlow<TSuccess, TFailure> Pipe<TSuccess, TFailure>(Func<T, Result<TSuccess, TFailure>> pipe)
             where TFailure : struct
             =>
             new(
                 InternalPipe(
-                    next ?? throw new ArgumentNullException(nameof(next))));
+                    pipe ?? throw new ArgumentNullException(nameof(pipe))));
     }
 }

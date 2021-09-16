@@ -33,7 +33,7 @@ namespace System
             InnerPipeValue(
                 (r, t) => r.MapValueAsync(
                     s => mapSuccessAsync.Invoke(s, t),
-                    f => f.Pipe(mapFailure).Pipe(ValueTask.FromResult)));
+                    f => f.InternalPipe(mapFailure).InternalPipe(ValueTask.FromResult)));
 
         private AsyncResultFlow<TResultSuccess, TResultFailure> InnerMapValue<TResultSuccess, TResultFailure>(
             Func<TSuccess, CancellationToken, ValueTask<TResultSuccess>> mapSuccessAsync,

@@ -82,7 +82,8 @@ namespace System
             =>
             InnerPipe(
                 (r, t) => r.ForwardAsync(
-                    s => nextAsync.Invoke(s, t), f => f.Pipe(mapFailure).Pipe(Task.FromResult)));
+                    s => nextAsync.Invoke(s, t),
+                    f => f.InternalPipe(mapFailure).InternalPipe(Task.FromResult)));
 
         private AsyncResultFlow<TNextSuccess, TNextFailure> InnerForward<TNextSuccess, TNextFailure>(
             Func<TSuccess, CancellationToken, Task<Result<TNextSuccess, TNextFailure>>> nextAsync,
@@ -91,7 +92,8 @@ namespace System
             =>
             InnerPipe(
                 (r, t) => r.ForwardAsync(
-                    s => nextAsync.Invoke(s, t), f => mapFailureAsync.Invoke(f, t)));
+                    s => nextAsync.Invoke(s, t),
+                    f => mapFailureAsync.Invoke(f, t)));
 
         private AsyncResultFlow<TNextSuccess, TFailure> InnerForward<TNextSuccess>(
             Func<TSuccess, CancellationToken, Task<Result<TNextSuccess, TFailure>>> nextAsync)

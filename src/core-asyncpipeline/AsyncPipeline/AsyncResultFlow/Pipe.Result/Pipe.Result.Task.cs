@@ -8,17 +8,17 @@ namespace System
     partial struct AsyncResultFlow<TSuccess, TFailure>
     {
         public AsyncResultFlow<TResultSuccess, TResultFailure> Pipe<TResultSuccess, TResultFailure>(
-            Func<Result<TSuccess, TFailure>, CancellationToken, Task<Result<TResultSuccess, TResultFailure>>> mapAsync)
+            Func<Result<TSuccess, TFailure>, CancellationToken, Task<Result<TResultSuccess, TResultFailure>>> pipeAsync)
             where TResultFailure : struct
             =>
             InnerPipe(
-                mapAsync ?? throw new ArgumentNullException(nameof(mapAsync)));
+                pipeAsync ?? throw new ArgumentNullException(nameof(pipeAsync)));
 
         private AsyncResultFlow<TResultSuccess, TResultFailure> InnerPipe<TResultSuccess, TResultFailure>(
-            Func<Result<TSuccess, TFailure>, CancellationToken, Task<Result<TResultSuccess, TResultFailure>>> mapAsync)
+            Func<Result<TSuccess, TFailure>, CancellationToken, Task<Result<TResultSuccess, TResultFailure>>> pipeAsync)
             where TResultFailure : struct
             =>
             new(
-                asyncPipeline.InternalPipe(mapAsync));
+                asyncPipeline.InternalPipe(pipeAsync));
     }
 }

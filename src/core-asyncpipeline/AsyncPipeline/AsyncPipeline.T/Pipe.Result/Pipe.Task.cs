@@ -8,11 +8,11 @@ namespace System
     partial struct AsyncPipeline<T>
     {
         public AsyncResultFlow<TSuccess, TFailure> Pipe<TSuccess, TFailure>(
-            Func<T, CancellationToken, Task<Result<TSuccess, TFailure>>> nextAsync)
+            Func<T, CancellationToken, Task<Result<TSuccess, TFailure>>> pipeAsync)
             where TFailure : struct
             =>
             new(
                 InternalPipe(
-                    nextAsync ?? throw new ArgumentNullException(nameof(nextAsync))));
+                    pipeAsync ?? throw new ArgumentNullException(nameof(pipeAsync))));
     }
 }
