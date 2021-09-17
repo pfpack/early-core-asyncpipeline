@@ -9,31 +9,12 @@ namespace System
     {
         public AsyncResultFlow<TResultSuccess, TResultFailure> MapValue<TResultSuccess, TResultFailure>(
             Func<TSuccess, CancellationToken, ValueTask<TResultSuccess>> mapSuccessAsync,
-            Func<TFailure, TResultFailure> mapFailure)
-            where TResultFailure : struct
-            =>
-            InnerMapValue(
-                mapSuccessAsync ?? throw new ArgumentNullException(nameof(mapSuccessAsync)),
-                mapFailure ?? throw new ArgumentNullException(nameof(mapFailure)));
-
-        public AsyncResultFlow<TResultSuccess, TResultFailure> MapValue<TResultSuccess, TResultFailure>(
-            Func<TSuccess, CancellationToken, ValueTask<TResultSuccess>> mapSuccessAsync,
             Func<TFailure, CancellationToken, ValueTask<TResultFailure>> mapFailureAsync)
             where TResultFailure : struct
             =>
             InnerMapValue(
                 mapSuccessAsync ?? throw new ArgumentNullException(nameof(mapSuccessAsync)),
                 mapFailureAsync ?? throw new ArgumentNullException(nameof(mapFailureAsync)));
-
-        private AsyncResultFlow<TResultSuccess, TResultFailure> InnerMapValue<TResultSuccess, TResultFailure>(
-            Func<TSuccess, CancellationToken, ValueTask<TResultSuccess>> mapSuccessAsync,
-            Func<TFailure, TResultFailure> mapFailure)
-            where TResultFailure : struct
-            =>
-            InnerPipeValue(
-                (r, t) => r.MapValueAsync(
-                    s => mapSuccessAsync.Invoke(s, t),
-                    f => f.InternalPipe(mapFailure).InternalPipe(ValueTask.FromResult)));
 
         private AsyncResultFlow<TResultSuccess, TResultFailure> InnerMapValue<TResultSuccess, TResultFailure>(
             Func<TSuccess, CancellationToken, ValueTask<TResultSuccess>> mapSuccessAsync,
