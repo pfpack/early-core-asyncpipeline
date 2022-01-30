@@ -2,11 +2,11 @@ name: .NET
 
 on:
   push:
-    branches: [ feature/*, main ]
-    
+    branches: [ main, dev, dev/*, feature/*, fix/*, release/* ]
+
   pull_request:
     branches: [ main ]
-    
+
   release:
     types: [ published ]
     branches: [ main ]
@@ -22,14 +22,18 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-        include-prerelease: true
-  
+        include-prerelease: false
+
+    # Create Local NuGet Source
+
     - name: Create Local NuGet Directory
       run: mkdir ~/nuget
-      
+
     - name: Add Local Nuget Source
       run: dotnet nuget add source ~/nuget
-      
+
+    # AsyncPipeline
+
     - name: Restore AsyncPipeline
       run: dotnet restore ./src/*/*/AsyncPipeline.csproj
 
@@ -38,7 +42,9 @@ jobs:
 
     - name: Pack AsyncPipeline
       run: dotnet pack ./src/*/*/AsyncPipeline.csproj --no-restore -o ~/nuget  -c Release
-      
+
+      # Push
+
     - name: Push Packages
       if: ${{ github.event_name == 'release' }}
       run: dotnet nuget push "../../../nuget/*.nupkg" -s https://api.nuget.org/v3/index.json -k ${{ secrets.NuGetSourcePassword }} --skip-duplicate
