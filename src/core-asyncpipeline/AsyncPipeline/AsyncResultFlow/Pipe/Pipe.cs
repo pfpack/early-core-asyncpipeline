@@ -1,12 +1,9 @@
-#nullable enable
+namespace System;
 
-namespace System
+partial struct AsyncResultFlow<TSuccess, TFailure>
 {
-    partial struct AsyncResultFlow<TSuccess, TFailure>
-    {
-        public AsyncPipeline<TResult> Pipe<TResult>(Func<Result<TSuccess, TFailure>, TResult> pipe)
-            =>
-            asyncPipeline.InternalPipe(
-                pipe ?? throw new ArgumentNullException(nameof(pipe)));
-    }
+    public AsyncPipeline<TResult> Pipe<TResult>(Func<Result<TSuccess, TFailure>, TResult> pipe)
+        =>
+        asyncPipeline.InternalPipe(
+            pipe ?? throw new ArgumentNullException(nameof(pipe)));
 }

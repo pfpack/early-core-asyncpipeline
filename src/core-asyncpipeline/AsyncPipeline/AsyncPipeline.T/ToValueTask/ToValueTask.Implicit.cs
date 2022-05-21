@@ -1,13 +1,10 @@
-#nullable enable
-
 using System.Threading.Tasks;
 
-namespace System
+namespace System;
+
+partial struct AsyncPipeline<T>
 {
-    partial struct AsyncPipeline<T>
-    {
-        public static implicit operator ValueTask<T>(AsyncPipeline<T> pipeline)
-            =>
-            pipeline.ToValueTask();
-    }
+    public static implicit operator ValueTask<T>(AsyncPipeline<T> pipeline)
+        =>
+        pipeline.ToValueTask();
 }

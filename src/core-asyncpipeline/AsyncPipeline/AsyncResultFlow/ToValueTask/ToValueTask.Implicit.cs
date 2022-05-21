@@ -1,13 +1,10 @@
-#nullable enable
-
 using System.Threading.Tasks;
 
-namespace System
+namespace System;
+
+partial struct AsyncResultFlow<TSuccess, TFailure>
 {
-    partial struct AsyncResultFlow<TSuccess, TFailure>
-    {
-        public static implicit operator ValueTask<Result<TSuccess, TFailure>>(AsyncResultFlow<TSuccess, TFailure> pipeline)
-            =>
-            pipeline.ToValueTask();
-    }
+    public static implicit operator ValueTask<Result<TSuccess, TFailure>>(AsyncResultFlow<TSuccess, TFailure> flow)
+        =>
+        flow.ToValueTask();
 }

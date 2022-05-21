@@ -4,7 +4,7 @@ namespace System;
 
 partial struct AsyncResultFlow<TSuccess, TFailure>
 {
-    public ValueTask<Result<TSuccess, TFailure>> ToValueTask()
+    public Task<Result<TSuccess, TFailure>> ToTask()
         =>
-        asyncPipeline.ToValueTask();
+        asyncPipeline.ToTask();
 }

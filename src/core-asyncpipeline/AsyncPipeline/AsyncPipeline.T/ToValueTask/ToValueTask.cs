@@ -1,13 +1,10 @@
-#nullable enable
-
 using System.Threading.Tasks;
 
-namespace System
+namespace System;
+
+partial struct AsyncPipeline<T>
 {
-    partial struct AsyncPipeline<T>
-    {
-        public ValueTask<T> ToValueTask()
-            =>
-            isCanceled is false ? valueTask : CanceledToken().InternalPipe(ValueTask.FromCanceled<T>);
-    }
+    public ValueTask<T> ToValueTask()
+        =>
+        isCanceled is false ? valueTask : CanceledToken().InternalPipe(ValueTask.FromCanceled<T>);
 }
