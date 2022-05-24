@@ -1,4 +1,3 @@
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace System;
@@ -14,6 +13,7 @@ partial struct AsyncResultFlow<TSuccess, TFailure>
     private AsyncResultFlow<TResultSuccess, TFailure> InnerMapSuccessValue<TResultSuccess>(
         Func<TSuccess, ValueTask<TResultSuccess>> mapSuccessAsync)
         =>
-        InnerPipeValue(
-            result => result.MapSuccessValueAsync(mapSuccessAsync));
+        new(
+            asyncPipeline.InternalPipeValue(
+                result => result.MapSuccessValueAsync(mapSuccessAsync)));
 }

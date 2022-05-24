@@ -1,4 +1,3 @@
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace System;
@@ -17,6 +16,6 @@ partial struct AsyncResultFlow<TSuccess, TFailure>
         where TResultFailure : struct
         =>
         new(
-            asyncPipeline.InternalPipe(
+            asyncPipeline.InternalPipeValue(
                 result => result.MapFailureValueAsync(mapFailureAsync)));
 }
