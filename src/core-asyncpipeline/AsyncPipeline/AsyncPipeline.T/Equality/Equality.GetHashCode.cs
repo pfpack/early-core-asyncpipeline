@@ -4,7 +4,7 @@ partial struct AsyncPipeline<T>
 {
     public override int GetHashCode()
         =>
-        isCanceled is false ? NonCanceledHashCode() : CanceledHashCode();
+        isCanceled is false ? NonCanceledHashCode() : AsyncPipeline<T>.CanceledHashCode();
 
     private int NonCanceledHashCode()
         =>
@@ -13,7 +13,7 @@ partial struct AsyncPipeline<T>
             ValueTaskComparer.GetHashCode(valueTask),
             CancellationTokenComparer.GetHashCode(cancellationToken));
 
-    private int CanceledHashCode()
+    private static int CanceledHashCode()
         =>
         HashCode.Combine(
             EqualityContractHashCode());
