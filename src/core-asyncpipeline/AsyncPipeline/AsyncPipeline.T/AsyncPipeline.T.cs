@@ -13,6 +13,7 @@ public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
 
     private readonly CancellationToken cancellationToken;
 
+    // Creates a non-canceled pipeline
     internal AsyncPipeline(ValueTask<T> valueTask, CancellationToken cancellationToken)
     {
         isCanceled = false;
@@ -20,6 +21,9 @@ public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
         this.cancellationToken = cancellationToken;
     }
 
+    // Creates the canceled pipeline
+    // The unused arg is intended to separate this constructor from the default constructor
+    // which creates the default non-canceled pipeline
     private AsyncPipeline(int _)
     {
         isCanceled = true;
