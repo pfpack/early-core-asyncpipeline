@@ -4,7 +4,7 @@ partial struct AsyncPipeline<T>
 {
     public override int GetHashCode()
         =>
-        isCanceled is false ? NonCanceledHashCode() : AsyncPipeline<T>.CanceledHashCode();
+        isCanceled is false ? NonCanceledHashCode() : CanceledHashCode();
 
     private int NonCanceledHashCode()
         =>
