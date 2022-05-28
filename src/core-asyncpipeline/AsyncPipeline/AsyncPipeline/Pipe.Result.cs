@@ -1,4 +1,5 @@
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace System;
 
@@ -9,5 +10,6 @@ partial class AsyncPipeline
         CancellationToken cancellationToken = default)
         where TFailure : struct
         =>
-        new(asyncPipeline: InnerCreate(value, cancellationToken));
+        new(
+            asyncPipeline: new(ValueTask.FromResult(value), cancellationToken));
 }
