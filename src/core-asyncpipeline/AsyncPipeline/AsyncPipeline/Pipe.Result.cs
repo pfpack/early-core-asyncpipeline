@@ -11,5 +11,5 @@ partial class AsyncPipeline
         where TFailure : struct
         =>
         new(
-            asyncPipeline: new(ValueTask.FromResult(value), cancellationToken));
+            asyncPipeline: new(valueTask: new(value), cancellationToken));
 }
