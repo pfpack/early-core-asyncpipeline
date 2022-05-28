@@ -6,7 +6,7 @@ partial struct AsyncPipeline<T>
         =>
         HashCode.Combine(
             EqualityContractComparer.GetHashCode(EqualityContract),
-            ValueTaskComparer.GetHashCode(valueTask),
             IsCanceledComparer.GetHashCode(isCanceled),
+            ValueTaskComparer.GetHashCode(valueTask),
             CancellationTokenComparer.GetHashCode(cancellationToken));
 }

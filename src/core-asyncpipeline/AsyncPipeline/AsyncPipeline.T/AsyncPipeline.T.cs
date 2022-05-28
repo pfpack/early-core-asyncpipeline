@@ -7,23 +7,23 @@ public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
 {
     private static CancellationToken CanceledToken() => new(canceled: true);
 
-    private readonly ValueTask<T> valueTask;
-
     private readonly bool isCanceled;
+
+    private readonly ValueTask<T> valueTask;
 
     private readonly CancellationToken cancellationToken;
 
     internal AsyncPipeline(ValueTask<T> valueTask, CancellationToken cancellationToken)
     {
-        this.valueTask = valueTask;
         isCanceled = false;
+        this.valueTask = valueTask;
         this.cancellationToken = cancellationToken;
     }
 
     private AsyncPipeline(CancellationToken cancellationToken)
     {
-        valueTask = default;
         isCanceled = true;
+        valueTask = default;
         this.cancellationToken = cancellationToken;
     }
 }
