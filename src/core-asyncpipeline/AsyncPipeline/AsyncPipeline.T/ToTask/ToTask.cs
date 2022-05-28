@@ -6,5 +6,9 @@ partial struct AsyncPipeline<T>
 {
     public Task<T> ToTask()
         =>
-        isCanceled is false ? valueTask.AsTask() : Task.FromCanceled<T>(CanceledToken());
+        isCanceled is false ? valueTask.AsTask() : InnerCanceledTask();
+
+    private Task<T> InnerCanceledTask()
+        =>
+        Task.FromCanceled<T>(cancellationToken.IsCancellationRequested ? cancellationToken : CanceledToken());
 }
