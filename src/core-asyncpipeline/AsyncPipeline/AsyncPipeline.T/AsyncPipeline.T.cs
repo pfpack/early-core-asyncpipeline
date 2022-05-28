@@ -23,7 +23,7 @@ public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
 
     // Creates the canceled pipeline
     // The unused arg is intended to separate this constructor from the default constructor
-    // which creates the default non-canceled pipeline
+    // which creates the non-canceled default pipeline
     private AsyncPipeline(int _)
     {
         isCanceled = true;
