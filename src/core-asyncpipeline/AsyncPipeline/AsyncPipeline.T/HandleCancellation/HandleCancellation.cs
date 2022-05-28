@@ -3,8 +3,17 @@ namespace System;
 partial struct AsyncPipeline<T>
 {
     public AsyncPipeline<T> HandleCancellation()
-        =>
-        isCanceled || cancellationToken.IsCancellationRequested
-            ? new(cancellationToken)
-            : new(valueTask, cancellationToken);
+    {
+        if (isCanceled)
+        {
+            return this;
+        }
+
+        if (cancellationToken.IsCancellationRequested)
+        {
+            return new(cancellationToken);
+        }
+
+        return this;
+    }
 }
