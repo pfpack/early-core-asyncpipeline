@@ -11,7 +11,7 @@ partial struct AsyncPipeline<T>
 
         if (cancellationToken.IsCancellationRequested)
         {
-            return new(cancellationToken);
+            return new(default);
         }
 
         return this;

@@ -20,10 +20,10 @@ public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
         this.cancellationToken = cancellationToken;
     }
 
-    private AsyncPipeline(CancellationToken cancellationToken)
+    private AsyncPipeline(int _)
     {
         isCanceled = true;
         valueTask = default;
-        this.cancellationToken = cancellationToken;
+        cancellationToken = default;
     }
 }
