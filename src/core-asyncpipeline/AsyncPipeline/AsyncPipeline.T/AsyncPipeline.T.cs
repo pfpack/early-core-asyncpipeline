@@ -5,7 +5,7 @@ namespace System;
 
 public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
 {
-    private static CancellationToken CanceledToken() => new(canceled: true);
+    private static CancellationToken InnerCanceledToken() => new(canceled: true);
 
     private readonly ValueTask<T> valueTask;
 
