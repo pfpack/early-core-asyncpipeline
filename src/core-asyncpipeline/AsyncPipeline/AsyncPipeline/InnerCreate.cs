@@ -5,7 +5,7 @@ namespace System;
 
 partial class AsyncPipeline
 {
-    private static AsyncPipeline<T> InnerPipe<T>(T value, CancellationToken cancellationToken)
+    private static AsyncPipeline<T> InnerCreate<T>(T value, CancellationToken cancellationToken)
         =>
         new(ValueTask.FromResult(value), cancellationToken);
 }
