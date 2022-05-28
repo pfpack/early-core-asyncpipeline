@@ -10,7 +10,5 @@ partial struct AsyncPipeline<T>
 
     private ValueTask<T> InnerCanceledValueTask()
         =>
-        cancellationToken.IsCancellationRequested
-        ? ValueTask.FromCanceled<T>(cancellationToken)
-        : ValueTask.FromCanceled<T>(CanceledToken());
+        ValueTask.FromCanceled<T>(cancellationToken.IsCancellationRequested ? cancellationToken : CanceledToken());
 }
