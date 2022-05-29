@@ -1,21 +1,10 @@
-#nullable enable
-
 using System.Threading;
 
-namespace System
-{
-    partial class AsyncPipeline
-    {
-        public static AsyncPipeline<T> Pipe<T>(T value, CancellationToken cancellationToken = default)
-            =>
-            InnerPipe(
-                value, cancellationToken);
+namespace System;
 
-        private static AsyncPipeline<T> InnerPipe<T>(T value, CancellationToken cancellationToken)
-            =>
-            new(
-                valueTask: new(value),
-                isCanceled: cancellationToken.IsCancellationRequested,
-                cancellationToken: cancellationToken);
-    }
+partial class AsyncPipeline
+{
+    public static AsyncPipeline<T> Pipe<T>(T value, CancellationToken cancellationToken = default)
+        =>
+        new(valueTask: new(value), cancellationToken);
 }

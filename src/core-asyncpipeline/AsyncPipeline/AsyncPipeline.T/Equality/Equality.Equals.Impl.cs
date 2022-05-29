@@ -1,13 +1,21 @@
-#nullable enable
+namespace System;
 
-namespace System
+partial struct AsyncPipeline<T>
 {
-    partial struct AsyncPipeline<T>
+    public bool Equals(AsyncPipeline<T> other)
     {
-        public bool Equals(AsyncPipeline<T> other)
-            =>
-            ValueTaskComparer.Equals(valueTask, other.valueTask)
-            && IsCanceledComparer.Equals(isCanceled, other.isCanceled)
-            && CancellationTokenComparer.Equals(cancellationToken, other.cancellationToken);
+        if (isCanceled != other.isCanceled)
+        {
+            return false;
+        }
+
+        if (isCanceled is false)
+        {
+            return
+                ValueTaskComparer.Equals(valueTask, other.valueTask) &&
+                CancellationTokenComparer.Equals(cancellationToken, other.cancellationToken);
+        }
+
+        return true;
     }
 }

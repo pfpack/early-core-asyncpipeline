@@ -1,15 +1,24 @@
-#nullable enable
+namespace System;
 
-namespace System
+partial struct AsyncPipeline<T>
 {
-    partial struct AsyncPipeline<T>
-    {
-        public override int GetHashCode()
-            =>
-            HashCode.Combine(
-                EqualityContract,
-                ValueTaskComparer.GetHashCode(valueTask),
-                IsCanceledComparer.GetHashCode(isCanceled),
-                CancellationTokenComparer.GetHashCode(cancellationToken));
-    }
+    public override int GetHashCode()
+        =>
+        isCanceled is false ? NonCanceledHashCode() : CanceledHashCode();
+
+    private int NonCanceledHashCode()
+        =>
+        HashCode.Combine(
+            EqualityContractHashCode(),
+            ValueTaskComparer.GetHashCode(valueTask),
+            CancellationTokenComparer.GetHashCode(cancellationToken));
+
+    private static int CanceledHashCode()
+        =>
+        HashCode.Combine(
+            EqualityContractHashCode());
+
+    private static int EqualityContractHashCode()
+        =>
+        EqualityContractComparer.GetHashCode(EqualityContract);
 }

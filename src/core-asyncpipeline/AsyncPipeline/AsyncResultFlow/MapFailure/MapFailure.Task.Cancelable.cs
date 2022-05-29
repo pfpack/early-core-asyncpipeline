@@ -6,17 +6,17 @@ namespace System;
 partial struct AsyncResultFlow<TSuccess, TFailure>
 {
     public AsyncResultFlow<TSuccess, TResultFailure> MapFailure<TResultFailure>(
-        Func<TFailure, Task<TResultFailure>> mapFailureAsync)
+        Func<TFailure, CancellationToken, Task<TResultFailure>> mapFailureAsync)
         where TResultFailure : struct
         =>
         InnerMapFailure(
             mapFailureAsync ?? throw new ArgumentNullException(nameof(mapFailureAsync)));
 
     private AsyncResultFlow<TSuccess, TResultFailure> InnerMapFailure<TResultFailure>(
-        Func<TFailure, Task<TResultFailure>> mapFailureAsync)
+        Func<TFailure, CancellationToken, Task<TResultFailure>> mapFailureAsync)
         where TResultFailure : struct
         =>
-        new(
-            asyncPipeline.InternalPipe(
-                result => result.MapFailureAsync(mapFailureAsync)));
+        InnerPipe(
+            (result, cancellationToken) => result.MapFailureAsync(
+                failure => mapFailureAsync.Invoke(failure, cancellationToken)));
 }

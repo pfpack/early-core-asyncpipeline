@@ -1,28 +1,23 @@
-#nullable enable
-
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace System
+namespace System;
+
+partial struct AsyncPipeline<T>
 {
-    partial struct AsyncPipeline<T>
+    public AsyncPipeline<TResult> PipeValue<TResult>(Func<T, ValueTask<TResult>> pipeAsync)
+        =>
+        InternalPipeValue(
+            pipeAsync ?? throw new ArgumentNullException(nameof(pipeAsync)));
+
+    internal AsyncPipeline<TResult> InternalPipeValue<TResult>(Func<T, ValueTask<TResult>> pipeAsync)
+        =>
+        isCanceled is false
+            ? new(InnerInvokeValueAsync(pipeAsync), cancellationToken)
+            : new(default);
+
+    private async ValueTask<TResult> InnerInvokeValueAsync<TResult>(Func<T, ValueTask<TResult>> pipeAsync)
     {
-        public AsyncPipeline<TResult> PipeValue<TResult>(
-            Func<T, CancellationToken, ValueTask<TResult>> pipeAsync)
-            =>
-            InternalPipeValue(
-                pipeAsync ?? throw new ArgumentNullException(nameof(pipeAsync)));
-
-        internal AsyncPipeline<TResult> InternalPipeValue<TResult>(Func<T, CancellationToken, ValueTask<TResult>> pipeAsync)
-            =>
-            isCanceled || cancellationToken.IsCancellationRequested
-                ? new(valueTask: default, isCanceled: true, cancellationToken: cancellationToken)
-                : new(valueTask: InnerPipeValueAsync(pipeAsync), isCanceled: false, cancellationToken: cancellationToken);
-
-        private async ValueTask<TResult> InnerPipeValueAsync<TResult>(Func<T, CancellationToken, ValueTask<TResult>> pipeAsync)
-        {
-            var result = await valueTask.ConfigureAwait(false);
-            return await pipeAsync.Invoke(result, cancellationToken).ConfigureAwait(false);
-        }
+        var result = await valueTask.ConfigureAwait(false);
+        return await pipeAsync.Invoke(result).ConfigureAwait(false);
     }
 }

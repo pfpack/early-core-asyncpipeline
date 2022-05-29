@@ -1,11 +1,10 @@
-#nullable enable
+namespace System;
 
-namespace System
+partial struct AsyncResultFlow<TSuccess, TFailure>
 {
-    partial struct AsyncResultFlow<TSuccess, TFailure>
-    {
-        public override int GetHashCode()
-            =>
-            HashCode.Combine(EqualityContract, AsyncPipelineComparer.GetHashCode(asyncPipeline));
-    }
+    public override int GetHashCode()
+        =>
+        HashCode.Combine(
+            EqualityContractComparer.GetHashCode(EqualityContract),
+            AsyncPipelineComparer.GetHashCode(asyncPipeline));
 }

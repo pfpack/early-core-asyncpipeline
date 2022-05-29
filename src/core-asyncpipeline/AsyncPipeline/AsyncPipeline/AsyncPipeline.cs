@@ -1,8 +1,5 @@
-#nullable enable
+namespace System;
 
-namespace System
+public static partial class AsyncPipeline
 {
-    public static partial class AsyncPipeline
-    {
-    }
 }
