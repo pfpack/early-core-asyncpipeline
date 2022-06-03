@@ -23,7 +23,7 @@ public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
 
     // Creates the stopped pipeline
     // The unused arg is intended to separate this constructor from the default constructor
-    // which creates the non-stopped default pipeline with the task completed state
+    // which creates the non-stopped pipeline with the task completed state and default result
     private AsyncPipeline(int _)
     {
         isStopped = true;
