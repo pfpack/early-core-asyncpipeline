@@ -14,6 +14,6 @@ partial struct AsyncPipeline<TSuccess, TFailure>
         Func<TSuccess, ValueTask<TResultSuccess>> mapSuccessAsync)
         =>
         new(
-            asyncPipeline.InternalPipeValue(
+            pipeline.InternalPipeValue(
                 result => result.MapSuccessValueAsync(mapSuccessAsync)));
 }

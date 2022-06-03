@@ -4,7 +4,7 @@ namespace System
     {
         public AsyncPipeline<TFailure> FailureOrThrow()
             =>
-            asyncPipeline.InternalPipe(
+            pipeline.InternalPipe(
                 r => r.FailureOrThrow());
 
         public AsyncPipeline<TFailure> FailureOrThrow(Func<Exception> exceptionFactory)
@@ -14,7 +14,7 @@ namespace System
 
         private AsyncPipeline<TFailure> InnerFailureOrThrow(Func<Exception> exceptionFactory)
             =>
-            asyncPipeline.InternalPipe(
+            pipeline.InternalPipe(
                 r => r.FailureOrThrow(exceptionFactory));
     }
 }

@@ -6,5 +6,5 @@ partial struct AsyncPipeline<TSuccess, TFailure>
 {
     public Task<Result<TSuccess, TFailure>> ToTask()
         =>
-        asyncPipeline.ToTask();
+        pipeline.ToTask();
 }

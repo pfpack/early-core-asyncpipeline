@@ -6,5 +6,5 @@ partial struct AsyncPipeline<TSuccess, TFailure>
         =>
         HashCode.Combine(
             EqualityContractComparer.GetHashCode(EqualityContract),
-            AsyncPipelineComparer.GetHashCode(asyncPipeline));
+            AsyncPipelineComparer.GetHashCode(pipeline));
 }

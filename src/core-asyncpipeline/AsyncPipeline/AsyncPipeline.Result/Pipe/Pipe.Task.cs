@@ -7,6 +7,6 @@ partial struct AsyncPipeline<TSuccess, TFailure>
 {
     public AsyncPipeline<TResult> Pipe<TResult>(Func<Result<TSuccess, TFailure>, Task<TResult>> pipeAsync)
         =>
-        asyncPipeline.InternalPipe(
+        pipeline.InternalPipe(
             pipeAsync ?? throw new ArgumentNullException(nameof(pipeAsync)));
 }

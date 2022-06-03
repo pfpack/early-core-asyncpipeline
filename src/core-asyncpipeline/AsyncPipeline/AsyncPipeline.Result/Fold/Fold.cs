@@ -10,7 +10,7 @@ namespace System
 
         private AsyncPipeline<TResult> InnerFold<TResult>(Func<TSuccess, TResult> mapSuccess, Func<TFailure, TResult> mapFailure)
             =>
-            asyncPipeline.InternalPipe(
+            pipeline.InternalPipe(
                 r => r.Fold(mapSuccess, mapFailure));
     }
 }

@@ -6,5 +6,5 @@ partial struct AsyncPipeline<TSuccess, TFailure>
 {
     public ValueTask<Result<TSuccess, TFailure>> ToValueTask()
         =>
-        asyncPipeline.ToValueTask();
+        pipeline.ToValueTask();
 }

@@ -4,5 +4,5 @@ partial struct AsyncPipeline<TSuccess, TFailure>
 {
     public AsyncPipeline<TSuccess, TFailure> HandleCancellation()
         =>
-        new(asyncPipeline.HandleCancellation());
+        new(pipeline.HandleCancellation());
 }

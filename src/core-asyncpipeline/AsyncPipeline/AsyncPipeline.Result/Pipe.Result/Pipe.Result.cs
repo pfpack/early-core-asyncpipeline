@@ -14,6 +14,6 @@ namespace System
             where TResultFailure : struct
             =>
             new(
-                asyncPipeline.InternalPipe(pipe));
+                pipeline.InternalPipe(pipe));
     }
 }

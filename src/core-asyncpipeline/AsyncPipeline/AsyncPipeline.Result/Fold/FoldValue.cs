@@ -17,7 +17,7 @@ namespace System
             Func<TSuccess, CancellationToken, ValueTask<TResult>> mapSuccessAsync,
             Func<TFailure, CancellationToken, ValueTask<TResult>> mapFailureAsync)
             =>
-            asyncPipeline.InternalPipeValue(
+            pipeline.InternalPipeValue(
                 (r, t) => r.FoldValueAsync(
                     s => mapSuccessAsync.Invoke(s, t),
                     f => mapFailureAsync.Invoke(f, t)));
