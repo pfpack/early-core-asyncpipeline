@@ -11,7 +11,7 @@ partial struct AsyncPipeline<T>
 
     internal AsyncPipeline<TResult> InternalPipe<TResult>(Func<T, TResult> pipe)
         =>
-        isCanceled is false
+        isStopped is false
             ? new(InnerInvokeAsync(pipe), cancellationToken)
             : new(default);
 

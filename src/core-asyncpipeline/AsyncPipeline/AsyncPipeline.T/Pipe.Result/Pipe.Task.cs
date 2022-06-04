@@ -5,7 +5,7 @@ namespace System
 {
     partial struct AsyncPipeline<T>
     {
-        public AsyncResultFlow<TSuccess, TFailure> Pipe<TSuccess, TFailure>(
+        public AsyncPipeline<TSuccess, TFailure> Pipe<TSuccess, TFailure>(
             Func<T, CancellationToken, Task<Result<TSuccess, TFailure>>> pipeAsync)
             where TFailure : struct
             =>

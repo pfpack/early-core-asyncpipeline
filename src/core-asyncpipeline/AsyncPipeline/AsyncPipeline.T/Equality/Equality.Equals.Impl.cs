@@ -4,12 +4,12 @@ partial struct AsyncPipeline<T>
 {
     public bool Equals(AsyncPipeline<T> other)
     {
-        if (isCanceled != other.isCanceled)
+        if (isStopped != other.isStopped)
         {
             return false;
         }
 
-        if (isCanceled is false)
+        if (isStopped is false)
         {
             return
                 ValueTaskComparer.Equals(valueTask, other.valueTask) &&
