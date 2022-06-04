@@ -14,7 +14,7 @@ partial struct AsyncPipeline<T>
         =>
         EqualityComparer<Type>.Default;
 
-    private static EqualityComparer<ValueTask<T>> TaskComparer
+    private static EqualityComparer<ValueTask<T>> ValueTaskComparer
         =>
         EqualityComparer<ValueTask<T>>.Default;
 

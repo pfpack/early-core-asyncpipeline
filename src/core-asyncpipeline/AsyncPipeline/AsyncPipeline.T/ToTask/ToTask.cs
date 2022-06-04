@@ -6,5 +6,5 @@ partial struct AsyncPipeline<T>
 {
     public Task<T> ToTask()
         =>
-        isStopped is false ? task.AsTask() : Task.FromCanceled<T>(CanceledToken());
+        isStopped is false ? valueTask.AsTask() : Task.FromCanceled<T>(CanceledToken());
 }

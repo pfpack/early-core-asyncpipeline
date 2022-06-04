@@ -6,12 +6,12 @@ namespace System;
 partial class AsyncPipeline
 {
     public static AsyncPipeline<TSuccess, TFailure> From<TSuccess, TFailure>(
-        ValueTask<Result<TSuccess, TFailure>> task,
+        ValueTask<Result<TSuccess, TFailure>> valueTask,
         CancellationToken cancellationToken = default)
         where TFailure : struct
         =>
         new(
-            pipeline: new(task, cancellationToken));
+            pipeline: new(valueTask, cancellationToken));
 
     public static AsyncPipeline<TSuccess, TFailure> From<TSuccess, TFailure>(
         Task<Result<TSuccess, TFailure>> task,
@@ -21,6 +21,6 @@ partial class AsyncPipeline
         _ = task ?? throw new ArgumentNullException(nameof(task));
 
         return new(
-            pipeline: new(task: new(task), cancellationToken));
+            pipeline: new(valueTask: new(task), cancellationToken));
     }
 }

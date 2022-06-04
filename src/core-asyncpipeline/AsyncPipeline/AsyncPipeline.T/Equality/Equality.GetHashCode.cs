@@ -10,7 +10,7 @@ partial struct AsyncPipeline<T>
         =>
         HashCode.Combine(
             EqualityContractHashCode(),
-            TaskComparer.GetHashCode(task),
+            ValueTaskComparer.GetHashCode(valueTask),
             CancellationTokenComparer.GetHashCode(cancellationToken));
 
     private static int StoppedHashCode()

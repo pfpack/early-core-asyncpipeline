@@ -9,15 +9,15 @@ public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
 
     private readonly bool isStopped;
 
-    private readonly ValueTask<T> task;
+    private readonly ValueTask<T> valueTask;
 
     private readonly CancellationToken cancellationToken;
 
     // Creates a non-stopped pipeline
-    internal AsyncPipeline(ValueTask<T> task, CancellationToken cancellationToken)
+    internal AsyncPipeline(ValueTask<T> valueTask, CancellationToken cancellationToken)
     {
         isStopped = false;
-        this.task = task;
+        this.valueTask = valueTask;
         this.cancellationToken = cancellationToken;
     }
 
@@ -27,7 +27,7 @@ public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
     private AsyncPipeline(int _)
     {
         isStopped = true;
-        task = default;
+        valueTask = default;
         cancellationToken = default;
     }
 }
