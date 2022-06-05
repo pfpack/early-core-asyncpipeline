@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace System;
 
@@ -14,9 +13,9 @@ partial struct AsyncPipeline<T>
         =>
         EqualityComparer<Type>.Default;
 
-    private static EqualityComparer<ValueTask<T>> ValueTaskComparer
+    private static ReferenceEqualityComparer TaskReferenceComparer
         =>
-        EqualityComparer<ValueTask<T>>.Default;
+        ReferenceEqualityComparer.Instance;
 
     private static EqualityComparer<CancellationToken> CancellationTokenComparer
         =>

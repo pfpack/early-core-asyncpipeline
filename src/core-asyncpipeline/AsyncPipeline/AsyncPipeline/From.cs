@@ -5,14 +5,15 @@ namespace System;
 
 partial class AsyncPipeline
 {
+    public static AsyncPipeline<T> From<T>(Task<T> task, CancellationToken cancellationToken = default)
+        =>
+        new(
+            task ?? throw new ArgumentNullException(nameof(task)),
+            cancellationToken);
+
     public static AsyncPipeline<T> From<T>(ValueTask<T> valueTask, CancellationToken cancellationToken = default)
         =>
-        new(valueTask, cancellationToken);
-
-    public static AsyncPipeline<T> From<T>(Task<T> task, CancellationToken cancellationToken = default)
-    {
-        _ = task ?? throw new ArgumentNullException(nameof(task));
-
-        return new(valueTask: new(task), cancellationToken);
-    }
+        new(
+            valueTask.AsTask(),
+            cancellationToken);
 }

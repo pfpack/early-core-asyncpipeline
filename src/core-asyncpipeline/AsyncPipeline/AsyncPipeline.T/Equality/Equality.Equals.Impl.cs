@@ -12,7 +12,7 @@ partial struct AsyncPipeline<T>
         if (isStopped is false)
         {
             return
-                ValueTaskComparer.Equals(valueTask, other.valueTask) &&
+                TaskReferenceComparer.Equals(task, other.task) &&
                 CancellationTokenComparer.Equals(cancellationToken, other.cancellationToken);
         }
 

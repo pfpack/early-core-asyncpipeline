@@ -1,4 +1,5 @@
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace System;
 
@@ -10,5 +11,5 @@ partial class AsyncPipeline
         where TFailure : struct
         =>
         new(
-            pipeline: new(valueTask: new(value), cancellationToken));
+            pipeline: new(Task.FromResult(value), cancellationToken));
 }
