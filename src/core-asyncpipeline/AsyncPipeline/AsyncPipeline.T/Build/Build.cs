@@ -23,6 +23,8 @@ partial struct AsyncPipeline<T>
         =>
         isStopped is false ? InnerAwaitValueAsync() : ValueTask.FromCanceled<T>(CanceledToken());
 
+    // Note: inner awaits are used to avoid the leaky abstraction of the implementation design
+
     private async Task<T> InnerAwaitAsync()
         =>
         await GetTask().ConfigureAwait(false);
