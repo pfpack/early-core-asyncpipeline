@@ -8,10 +8,6 @@ partial struct AsyncPipeline<TSuccess, TFailure>
         =>
         pipeline.Build();
 
-    public ValueTask<Result<TSuccess, TFailure>> BuildValuePreserved()
-        =>
-        pipeline.BuildValuePreserved();
-
     public ValueTask<Result<TSuccess, TFailure>> BuildValue()
         =>
         pipeline.BuildValue();
