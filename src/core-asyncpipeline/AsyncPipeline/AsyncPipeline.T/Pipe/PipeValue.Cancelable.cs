@@ -18,7 +18,7 @@ partial struct AsyncPipeline<T>
 
     private async ValueTask<TResult> InnerInvokeValueAsync<TResult>(Func<T, CancellationToken, ValueTask<TResult>> pipeAsync)
     {
-        var result = await valueTask.ConfigureAwait(false);
-        return await pipeAsync.Invoke(result, cancellationToken).ConfigureAwait(false);
+        var result = await valueTask.ConfigureAwait(Options.ContinueOnCapturedContext);
+        return await pipeAsync.Invoke(result, cancellationToken).ConfigureAwait(Options.ContinueOnCapturedContext);
     }
 }
