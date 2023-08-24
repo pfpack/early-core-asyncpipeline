@@ -10,11 +10,11 @@ namespace System
             Func<TFailure, CancellationToken, ValueTask<Result<TResultSuccess, TResultFailure>>> mapFailureAsync)
             where TResultFailure : struct
             =>
-            InnerFilterValue(
+            InnerFoldValue(
                 mapSuccessAsync ?? throw new ArgumentNullException(nameof(mapSuccessAsync)),
                 mapFailureAsync ?? throw new ArgumentNullException(nameof(mapFailureAsync)));
 
-        private AsyncPipeline<TResultSuccess, TResultFailure> InnerFilterValue<TResultSuccess, TResultFailure>(
+        private AsyncPipeline<TResultSuccess, TResultFailure> InnerFoldValue<TResultSuccess, TResultFailure>(
             Func<TSuccess, CancellationToken, ValueTask<Result<TResultSuccess, TResultFailure>>> mapSuccessAsync,
             Func<TFailure, CancellationToken, ValueTask<Result<TResultSuccess, TResultFailure>>> mapFailureAsync)
             where TResultFailure : struct
