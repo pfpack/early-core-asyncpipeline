@@ -8,4 +8,8 @@ public readonly partial struct AsyncPipeline<TSuccess, TFailure> : IEquatable<As
     internal AsyncPipeline(AsyncPipeline<Result<TSuccess, TFailure>> pipeline)
         =>
         this.pipeline = pipeline;
+
+    public AsyncPipelineOptions Options
+        =>
+        pipeline.Options;
 }
