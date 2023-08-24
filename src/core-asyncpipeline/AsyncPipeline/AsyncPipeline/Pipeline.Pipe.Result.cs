@@ -10,5 +10,5 @@ partial class AsyncPipeline
         where TFailure : struct
         =>
         new(
-            pipeline: new(valueTask: new(value), cancellationToken, null));
+            pipeline: new(valueTask: new(value), null, cancellationToken));
 }

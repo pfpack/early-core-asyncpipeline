@@ -13,8 +13,8 @@ partial struct AsyncPipeline<T>
         {
             return
                 ValueTaskComparer.Equals(valueTask, other.valueTask) &&
-                CancellationTokenComparer.Equals(cancellationToken, other.cancellationToken) &&
-                OptionsComparer.Equals(Options, other.Options);
+                OptionsComparer.Equals(Options, other.Options) &&
+                CancellationTokenComparer.Equals(cancellationToken, other.cancellationToken);
         }
 
         return true;

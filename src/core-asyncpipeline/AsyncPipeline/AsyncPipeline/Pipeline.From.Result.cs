@@ -11,7 +11,7 @@ partial class AsyncPipeline
         where TFailure : struct
         =>
         new(
-            pipeline: new(valueTask, cancellationToken, null));
+            pipeline: new(valueTask, null, cancellationToken));
 
     public static AsyncPipeline<TSuccess, TFailure> From<TSuccess, TFailure>(
         Task<Result<TSuccess, TFailure>> task,
@@ -21,6 +21,6 @@ partial class AsyncPipeline
         _ = task ?? throw new ArgumentNullException(nameof(task));
 
         return new(
-            pipeline: new(valueTask: new(task), cancellationToken, null));
+            pipeline: new(valueTask: new(task), null, cancellationToken));
     }
 }
