@@ -9,11 +9,11 @@ namespace System
             Func<TSuccess, CancellationToken, Task<TResult>> mapSuccessAsync,
             Func<TFailure, CancellationToken, Task<TResult>> mapFailureAsync)
             =>
-            InnerFilter(
+            InnerFold(
                 mapSuccessAsync ?? throw new ArgumentNullException(nameof(mapSuccessAsync)),
                 mapFailureAsync ?? throw new ArgumentNullException(nameof(mapFailureAsync)));
 
-        private AsyncPipeline<TResult> InnerFilter<TResult>(
+        private AsyncPipeline<TResult> InnerFold<TResult>(
             Func<TSuccess, CancellationToken, Task<TResult>> mapSuccessAsync,
             Func<TFailure, CancellationToken, Task<TResult>> mapFailureAsync)
             =>

@@ -13,12 +13,12 @@ partial struct AsyncPipeline<T>
     internal AsyncPipeline<TResult> InternalPipe<TResult>(Func<T, CancellationToken, Task<TResult>> pipeAsync)
         =>
         isStopped is false
-            ? new(InnerInvokeAsync(pipeAsync), cancellationToken)
+            ? new(InnerInvokeAsync(pipeAsync), options, cancellationToken)
             : new(default);
 
     private async ValueTask<TResult> InnerInvokeAsync<TResult>(Func<T, CancellationToken, Task<TResult>> pipeAsync)
     {
-        var result = await valueTask.ConfigureAwait(false);
-        return await pipeAsync.Invoke(result, cancellationToken).ConfigureAwait(false);
+        var result = await valueTask.ConfigureAwait(Options.ContinueOnCapturedContext);
+        return await pipeAsync.Invoke(result, cancellationToken).ConfigureAwait(Options.ContinueOnCapturedContext);
     }
 }

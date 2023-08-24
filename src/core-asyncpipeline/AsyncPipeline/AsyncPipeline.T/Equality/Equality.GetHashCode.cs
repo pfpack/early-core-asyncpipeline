@@ -11,6 +11,7 @@ partial struct AsyncPipeline<T>
         HashCode.Combine(
             EqualityContractHashCode(),
             ValueTaskComparer.GetHashCode(valueTask),
+            OptionsComparer.GetHashCode(Options),
             CancellationTokenComparer.GetHashCode(cancellationToken));
 
     private static int StoppedHashCode()

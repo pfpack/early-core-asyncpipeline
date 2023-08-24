@@ -18,6 +18,10 @@ partial struct AsyncPipeline<T>
         =>
         EqualityComparer<ValueTask<T>>.Default;
 
+    private static EqualityComparer<AsyncPipelineOptions> OptionsComparer
+        =>
+        EqualityComparer<AsyncPipelineOptions>.Default;
+
     private static EqualityComparer<CancellationToken> CancellationTokenComparer
         =>
         EqualityComparer<CancellationToken>.Default;

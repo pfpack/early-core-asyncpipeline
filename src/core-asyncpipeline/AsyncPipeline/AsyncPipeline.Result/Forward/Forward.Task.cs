@@ -51,27 +51,33 @@ namespace System
             Func<TSuccess, CancellationToken, Task<Result<TNextSuccess, TNextFailure>>> nextAsync,
             Func<TNextFailure, TFailure> mapFailure)
             where TNextFailure : struct
-            =>
-            InnerPipeValue(
+        {
+            var continueOnCapturedContext = pipeline.Options.ContinueOnCapturedContext;
+
+            return InnerPipeValue(
                 (r, t) => r.ForwardValueAsync(
                     async s =>
                     {
-                        var next = await nextAsync.Invoke(s, t).ConfigureAwait(false);
+                        var next = await nextAsync.Invoke(s, t).ConfigureAwait(continueOnCapturedContext);
                         return next.MapFailure(mapFailure);
                     }));
+        }
 
         private AsyncPipeline<TNextSuccess, TFailure> InnerForward<TNextSuccess, TNextFailure>(
             Func<TSuccess, CancellationToken, Task<Result<TNextSuccess, TNextFailure>>> nextAsync,
             Func<TNextFailure, CancellationToken, Task<TFailure>> mapFailureAsync)
             where TNextFailure : struct
-            =>
-            InnerPipeValue(
+        {
+            var continueOnCapturedContext = pipeline.Options.ContinueOnCapturedContext;
+
+            return InnerPipeValue(
                 (r, t) => r.ForwardValueAsync(
                     async s =>
                     {
                         var next = await nextAsync.Invoke(s, t).ConfigureAwait(false);
-                        return await next.MapFailureAsync(f => mapFailureAsync.Invoke(f, t)).ConfigureAwait(false);
+                        return await next.MapFailureAsync(f => mapFailureAsync.Invoke(f, t)).ConfigureAwait(continueOnCapturedContext);
                     }));
+        }
 
         private AsyncPipeline<TNextSuccess, TNextFailure> InnerForward<TNextSuccess, TNextFailure>(
             Func<TSuccess, CancellationToken, Task<Result<TNextSuccess, TNextFailure>>> nextAsync,
