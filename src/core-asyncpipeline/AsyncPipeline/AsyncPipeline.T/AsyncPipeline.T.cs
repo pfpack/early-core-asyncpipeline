@@ -31,15 +31,15 @@ public readonly partial struct AsyncPipeline<T> : IEquatable<AsyncPipeline<T>>
     {
         isStopped = true;
         valueTask = default;
-        cancellationToken = default;
         options = null;
+        cancellationToken = default;
     }
 
     public AsyncPipelineOptions Options
         =>
-        options ?? InnerEmptyOptions.Value;
+        options ?? InnerDefaultOptions.Value;
 
-    private static class InnerEmptyOptions
+    private static class InnerDefaultOptions
     {
         internal static readonly AsyncPipelineOptions Value = new();
     }
