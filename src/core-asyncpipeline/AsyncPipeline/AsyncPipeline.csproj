@@ -17,7 +17,7 @@
     <Description>EarlyFuncPack Core.AsyncPipeline is a core library for .NET consisting of asynchronous pipeline.</Description>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>EarlyFuncPack.Core.AsyncPipeline</AssemblyName>
-    <Version>0.3.0-preview.1</Version>
+    <Version>0.3.0-preview.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

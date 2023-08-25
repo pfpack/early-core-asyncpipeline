@@ -9,7 +9,7 @@ public readonly partial struct AsyncPipeline<TSuccess, TFailure> : IEquatable<As
         =>
         this.pipeline = pipeline;
 
-    public AsyncPipelineOptions Options
+    public AsyncPipelineConfiguration Configuration
         =>
-        pipeline.Options;
+        pipeline.Configuration;
 }

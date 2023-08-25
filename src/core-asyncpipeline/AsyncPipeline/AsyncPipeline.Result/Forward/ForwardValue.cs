@@ -52,7 +52,7 @@ namespace System
             Func<TNextFailure, TFailure> mapFailure)
             where TNextFailure : struct
         {
-            var continueOnCapturedContext = pipeline.Options.ContinueOnCapturedContext;
+            var continueOnCapturedContext = pipeline.Configuration.ContinueOnCapturedContext;
 
             return InnerPipeValue(
                 (r, t) => r.ForwardValueAsync(
@@ -68,7 +68,7 @@ namespace System
             Func<TNextFailure, CancellationToken, ValueTask<TFailure>> mapFailureAsync)
             where TNextFailure : struct
         {
-            var continueOnCapturedContext = pipeline.Options.ContinueOnCapturedContext;
+            var continueOnCapturedContext = pipeline.Configuration.ContinueOnCapturedContext;
 
             return InnerPipeValue(
                 (r, t) => r.ForwardValueAsync(
