@@ -1,20 +1,25 @@
-namespace System
+namespace System;
+
+partial struct AsyncPipeline<TSuccess, TFailure>
 {
-    partial struct AsyncPipeline<TSuccess, TFailure>
+    public AsyncPipeline<TSuccess> SuccessOrThrow()
+        =>
+        pipeline.InternalPipe(
+            r => r.SuccessOrThrow());
+
+    public AsyncPipeline<TSuccess> SuccessOrThrow(Func<Exception> exceptionFactory)
     {
-        public AsyncPipeline<TSuccess> SuccessOrThrow()
-            =>
-            pipeline.InternalPipe(
-                r => r.SuccessOrThrow());
+        _ = exceptionFactory ?? throw new ArgumentNullException(nameof(exceptionFactory));
 
-        public AsyncPipeline<TSuccess> SuccessOrThrow(Func<Exception> exceptionFactory)
-            =>
-            InnerSuccessOrThrow(
-                exceptionFactory ?? throw new ArgumentNullException(nameof(exceptionFactory)));
+        return pipeline.InternalPipe(
+            r => r.SuccessOrThrow(exceptionFactory));
+    }
 
-        private AsyncPipeline<TSuccess> InnerSuccessOrThrow(Func<Exception> exceptionFactory)
-            =>
-            pipeline.InternalPipe(
-                r => r.SuccessOrThrow(exceptionFactory));
+    public AsyncPipeline<TSuccess> SuccessOrThrow(Func<TFailure, Exception> exceptionFactory)
+    {
+        _ = exceptionFactory ?? throw new ArgumentNullException(nameof(exceptionFactory));
+
+        return pipeline.InternalPipe(
+            r => r.SuccessOrThrow(exceptionFactory));
     }
 }
