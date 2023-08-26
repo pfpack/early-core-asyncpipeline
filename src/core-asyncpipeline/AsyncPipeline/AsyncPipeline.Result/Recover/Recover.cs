@@ -2,6 +2,15 @@ namespace System;
 
 partial struct AsyncPipeline<TSuccess, TFailure>
 {
+    public AsyncPipeline<TSuccess, TFailure> Recover(
+        Func<TFailure, Result<TSuccess, TFailure>> otherFactory)
+    {
+        _ = otherFactory ?? throw new ArgumentNullException(nameof(otherFactory));
+
+        return InnerPipe(
+            current => current.Recover(otherFactory));
+    }
+
     public AsyncPipeline<TOtherSuccess, TFailure> Recover<TOtherSuccess>(
         Func<TFailure, Result<TOtherSuccess, TFailure>> otherFactory,
         Func<TSuccess, TOtherSuccess> mapSuccess)

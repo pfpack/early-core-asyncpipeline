@@ -5,6 +5,16 @@ namespace System;
 
 partial struct AsyncPipeline<TSuccess, TFailure>
 {
+    public AsyncPipeline<TSuccess, TFailure> Recover(
+        Func<TFailure, CancellationToken, Task<Result<TSuccess, TFailure>>> otherFactoryAsync)
+    {
+        _ = otherFactoryAsync ?? throw new ArgumentNullException(nameof(otherFactoryAsync));
+
+        return InnerPipe(
+            (current, token) => current.RecoverAsync(
+                failure => otherFactoryAsync.Invoke(failure, token)));
+    }
+
     public AsyncPipeline<TOtherSuccess, TFailure> Recover<TOtherSuccess>(
         Func<TFailure, CancellationToken, Task<Result<TOtherSuccess, TFailure>>> otherFactoryAsync,
         Func<TSuccess, CancellationToken, Task<TOtherSuccess>> mapSuccessAsync)
