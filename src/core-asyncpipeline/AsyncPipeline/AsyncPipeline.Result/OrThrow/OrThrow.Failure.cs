@@ -5,7 +5,7 @@ partial struct AsyncPipeline<TSuccess, TFailure>
     public AsyncPipeline<TFailure> FailureOrThrow()
         =>
         pipeline.InternalPipe(
-            r => r.FailureOrThrow());
+            static r => r.FailureOrThrow());
 
     public AsyncPipeline<TFailure> FailureOrThrow(Func<Exception> exceptionFactory)
     {
